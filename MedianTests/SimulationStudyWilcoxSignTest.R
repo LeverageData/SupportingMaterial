@@ -7,7 +7,7 @@ library(restorepoint)
 ####
 
 #Main variables
-use_distr <- "exp" #supported: gamma, exp, unif, norm, valley
+use_distr <- "unif" #supported: gamma, exp, unif, norm, valley
 tests <- c("t.test","wilcox","sign")
 
 #Graphical Variables
@@ -70,7 +70,7 @@ GetDefaultParams <- function(distribution){
   
   switch(distribution,
          gamma={
-           mu0_1=10
+           mu0_1 <-10
            res <- list(distr_name=distribution,
                        distr_params=list(shape=10.332,scale=1),
                        mu_0=c(mu0_1, mu0_1+0.15, mu0_1+0.332, mu0_1+0.5),
@@ -79,7 +79,7 @@ GetDefaultParams <- function(distribution){
                        )
          },
          exp={
-           mu0_1=1
+           mu0_1 <- 1
            res <- list(distr_name=distribution,
                        distr_params=list(rate=0.693),
                        mu_0=c(mu0_1, mu0_1+0.221, mu0_1+0.443, mu0_1+0.664),
@@ -87,15 +87,15 @@ GetDefaultParams <- function(distribution){
                        display_params=c("lambda"))
          },
          unif={
-           mu0_1=5
+           mu0_1 <- 0.5
            res <- list(distr_name=distribution,
-                       distr_params=list(min = 0, max = 10),
-                       mu_0=c(mu0_1, mu0_1+0.25, mu0_1+0.5, mu0_1+0.75),
+                       distr_params=list(min = 0, max = 1),
+                       mu_0=c(mu0_1, mu0_1+0.025, mu0_1+0.05, mu0_1+0.075),
                        display_name="Gleichverteilung",
                        display_params=c("min","max"))
          },
          norm={
-           mu0_1=0
+           mu0_1 <- 0
            res <- list(distr_name=distribution,
                        distr_params=list(mean = 0, sd = 1),
                        mu_0=c(mu0_1, mu0_1+0.05, mu0_1+0.1, mu0_1+0.25),
@@ -103,7 +103,7 @@ GetDefaultParams <- function(distribution){
                        display_params=c("Mittelwert","Standardabweichung"))
          },
          valley={
-           mu0_1=0.5
+           mu0_1 <- 0.5
            res <- list(distr_name=distribution,
                        distr_params=list(rate=10),
                        mu_0=c(mu0_1, mu0_1+0.05, mu0_1+0.1, mu0_1+0.25),

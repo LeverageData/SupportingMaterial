@@ -2,28 +2,28 @@ library(tidyverse)
 library(cowplot)
 
 n <- 10^3
-x <- seq(-1,11,length.out=n)
+x <- seq(-0.1,1.1,length.out=n)
 colors<- c(rgb(0,165,220,maxColorValue = 255), rgb(250,177,5, maxColorValue = 255), rgb(240,125,23,maxColorValue = 255)) 
 graphic_tbl <- bind_rows(tibble(Name="Gleichverteilung", Color=colors[1], Linetype=1, Size=1, Display="Gleichverteilung", Type="Dichte"), 
                          tibble(Name=c("Median","Mittelwert"), Color=colors[2:3], Linetype=c(2,3), Size=c(1,1), Display=c("Median","Mittelwert"), Type="Information"))
 
-y <- dunif(x, min=0, max=10)
-my_mean <- 5
-my_median <- 5
+y <- dunif(x, min=0, max=1)
+my_mean <- 0.5
+my_median <- 0.5
 df <- bind_cols(x=x,y=y,Type="Gleichverteilung")
 
 
 main <- ggplot(df, aes(x=x,y=y,color=Type,linetype=Type, size=Type)) +
   geom_area(fill=colors[1], alpha=0.2) +
-  ggtitle("Dichte der Gleichverteilung, min=0, max=10") +
-  geom_segment(aes(x=my_mean,xend=my_mean,y=0,yend=0.1, color="Mittelwert", size="Mittelwert",linetype="Mittelwert")) +
-  annotate(geom="text", x=my_mean, y=0.1025, label=sprintf("%.2f",my_mean),color=graphic_tbl[graphic_tbl$Name=="Mittelwert","Color"], fontface=2) +
-  geom_segment(aes(x=my_median,xend=my_median,y=0,yend=0.1, color="Median", size="Median",linetype="Median")) +
-  annotate(geom="text", x=my_median, y=0.105, label=sprintf("%.2f",my_median),color=graphic_tbl[graphic_tbl$Name=="Median","Color"], fontface=2) +
+  ggtitle("Dichte der Gleichverteilung, min=0, max=1") +
+  geom_segment(aes(x=my_mean,xend=my_mean,y=0,yend=1, color="Mittelwert", size="Mittelwert",linetype="Mittelwert")) +
+  annotate(geom="text", x=my_mean, y=1.025, label=sprintf("%.2f",my_mean),color=graphic_tbl[graphic_tbl$Name=="Mittelwert","Color"], fontface=2) +
+  geom_segment(aes(x=my_median,xend=my_median,y=0,yend=1, color="Median", size="Median",linetype="Median")) +
+  annotate(geom="text", x=my_median, y=1.05, label=sprintf("%.2f",my_median),color=graphic_tbl[graphic_tbl$Name=="Median","Color"], fontface=2) +
   scale_color_manual(breaks=graphic_tbl$Name, values=graphic_tbl$Color, labels=graphic_tbl$Display, name="Information") +
   scale_size_manual(breaks=graphic_tbl$Name, values=graphic_tbl$Size, labels=graphic_tbl$Display, name="Information") +
   scale_linetype_manual(breaks=graphic_tbl$Name, values=graphic_tbl$Linetype, labels=graphic_tbl$Display, name="Information") +
-  scale_x_continuous(breaks=seq(0,10,by=0.5)) +
+  scale_x_continuous(breaks=seq(0,1,by=0.05)) +
   theme(legend.position = "none",text=element_text(size=21)) +
   xlab("x") +
   ylab("Dichte")
