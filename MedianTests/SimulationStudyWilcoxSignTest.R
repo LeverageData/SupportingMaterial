@@ -50,7 +50,7 @@ rvalley <- function(n, rate){
       exp_left[to_repeat] <- rexp(sum(to_repeat),rate)
       to_repeat <- exp_left>1
     }
-  }
+  } 
   if(n_right>0){
     exp_right <- 1-rexp(n_right,rate)
     to_repeat <- exp_right<0
@@ -60,8 +60,8 @@ rvalley <- function(n, rate){
     }
   }
   res <- rep(NA,n)
-  res[separation<0.5] <- exp_left
-  res[separation>=0.5] <- exp_right
+  if(any(separation<0.5)) res[separation<0.5] <- exp_left
+  if(any(separation>=0.5)) res[separation>=0.5] <- exp_right
   return(res)
 }
 
